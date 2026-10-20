@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Install MV Visuals on iPhone</title>
+<meta name="theme-color" content="#0f1226">
+<style>
+:root{
+  --bg:#eef0fb; --surface:#ffffff; --ink:#14173a; --muted:#585d85;
+  --line:#d5d9f0; --accent:#4b3df2; --accent-ink:#ffffff; --ok:#12805c;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1226; --surface:#181c3b; --ink:#eceeff; --muted:#a2a7d3;
+    --line:#2b3060; --accent:#8c82ff; --accent-ink:#0f1226; --ok:#4ad8a6;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%}
+body{
+  margin:0; min-height:100%; background:var(--bg); color:var(--ink);
+  font:16px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+main{max-width:520px; margin:0 auto; padding:40px 20px 56px}
+.icon{
+  width:72px; height:72px; border-radius:18px; margin-bottom:20px;
+  background:var(--accent); color:var(--accent-ink);
+  display:grid; place-items:center; font-size:34px; font-weight:800;
+  letter-spacing:-.04em;
+}
+h1{font-size:2.4rem; line-height:1.05; letter-spacing:-.03em; margin:0 0 10px; font-weight:800}
+.lede{color:var(--muted); margin:0 0 32px; max-width:44ch}
+ol{list-style:none; margin:0; padding:0; counter-reset:s}
+li{
+  counter-increment:s; position:relative; background:var(--surface);
+  border:1px solid var(--line); border-radius:16px;
+  padding:20px 20px 20px 68px; margin-bottom:14px;
+}
+li::before{
+  content:counter(s); position:absolute; left:20px; top:20px;
+  width:32px; height:32px; border-radius:50%;
+  display:grid; place-items:center; font-weight:700; font-size:.95rem;
+  border:2px solid var(--accent); color:var(--accent);
+}
+h2{font-size:1.1rem; margin:0 0 4px; letter-spacing:-.01em}
+li p{margin:0 0 14px; color:var(--muted); font-size:.95rem}
+.btn{
+  display:block; text-align:center; text-decoration:none;
+  background:var(--accent); color:var(--accent-ink);
+  font-weight:700; padding:14px 18px; border-radius:12px; font-size:1rem;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:active{transform:scale(.98)}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent); outline-offset:3px}
+.btn.alt{background:transparent; color:var(--accent); border:2px solid var(--accent)}
+.help{margin-top:28px; border-top:1px solid var(--line); padding-top:8px}
+details{border-bottom:1px solid var(--line); padding:12px 0}
+summary{cursor:pointer; font-weight:600}
+details p{margin:8px 0 0; color:var(--muted); font-size:.95rem}
+.warn{
+  display:none; background:var(--surface); border:1px solid var(--line);
+  border-left:4px solid #d9822b; border-radius:10px;
+  padding:12px 14px; margin-bottom:20px; font-size:.92rem;
+}
+.warn.show{display:block}
+footer{margin-top:28px; font-size:.82rem; color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.btn:active{transform:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="icon" aria-hidden="true">V</div>
+  <h1>Install Visuals</h1>
+  <p class="lede">Two quick steps, in order, using Safari on your iPhone or iPad.</p>
+
+  <div class="warn" id="warn" role="alert">
+    This page only works in Safari on iOS. Open this link in Safari to continue.
+  </div>
+
+  <ol>
+    <li>
+      <h2>Add the DNS profile</h2>
+      <p>Tap the button, choose Allow, then open Settings and tap “Profile Downloaded” to install it. Do this first.</p>
+      <a class="btn alt" href="https://sideloading.net/dns/nexrevokedns.mobileconfig">Download DNS profile</a>
+    </li>
+    <li>
+      <h2>Install the app</h2>
+      <p>Tap Install on the prompt that appears. The app shows up on your Home Screen while it downloads.</p>
+      <a class="btn" href="itms-services://?action=download-manifest&amp;url=https://raw.githubusercontent.com/XVloper/Visuals-Direct/main/manifest.plist">Install Visuals</a>
+    </li>
+  </ol>
+
+  <section class="help" aria-label="Help">
+    <details>
+      <summary>App says “Untrusted Developer”</summary>
+      <p>Go to Settings › General › VPN &amp; Device Management, tap the developer profile listed under Enterprise App, then tap Trust.</p>
+    </details>
+    <details>
+      <summary>The install prompt doesn’t appear</summary>
+      <p>Make sure you’re in Safari, not an in-app browser. Reload this page and tap Install again.</p>
+    </details>
+    <details>
+      <summary>The app stopped opening</summary>
+      <p>Check that the DNS profile is still installed in Settings › General › VPN &amp; Device Management. If it is, delete the app and install it again.</p>
+    </details>
+    <details>
+      <summary>How do I remove the DNS profile?</summary>
+      <p>Open Settings › General › VPN &amp; Device Management, tap the DNS profile, then tap Remove Profile.</p>
+    </details>
+  </section>
+
+  <footer>Not affiliated with Apple. Install only what you trust.</footer>
+</main>
+
+<script>
+(function(){
+  var ua = navigator.userAgent;
+  var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var safari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|GSA|FBAN|FBAV|Instagram|Line/.test(ua);
+  if (!ios || !safari) document.getElementById("warn").classList.add("show");
+})();
+</script>
+</body>
+</html>
